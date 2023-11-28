@@ -1,0 +1,23 @@
+server:
+  port: 8080
+  shutdown: graceful
+spring:
+  sql:
+    init:
+      mode: always
+  datasource:
+    url: jdbc:postgresql://localhost:5432/jdbi
+    username: root
+    password: root
+    driverClassName: org.postgresql.Driver
+    hikari:
+      schema: public
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+  hibernate:
+    ddl-auto: update
+  properties:
+    hibernate:
+      show_sql: true
+      format_sql: true
