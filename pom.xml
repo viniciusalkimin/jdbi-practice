@@ -65,6 +65,12 @@
 			<artifactId>jdbi3-sqlobject</artifactId>
 			<version>${jdbi.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jdbi</groupId>
+			<artifactId>jdbi3-stringtemplate4</artifactId>
+			<version>3.41.3</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

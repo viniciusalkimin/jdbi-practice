@@ -1,0 +1,17 @@
+group DynamicQueryJDBIRepository;
+
+getByParameter(state, city, county) ::= <<
+select id, name, state, city, county, address
+from  public.pubs
+where 1 = 1
+<if(state)>
+and state = '<state>'
+<endif>
+<if(city)>
+and city = '<city>'
+<endif>
+<if(county)>
+and county = '<county>'
+<endif>
+>>
+

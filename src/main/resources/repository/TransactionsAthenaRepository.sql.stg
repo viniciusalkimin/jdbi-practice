@@ -1,0 +1,85 @@
+group TransactionsAthenaRepository;
+
+getAllTransactionsInAthena(contractNumber, branch, bases, cardProfile, documentNumber,
+                            status, plate, costCenter, isTransaction,
+                           isPostage, transactionDateStart, transactionDateEnd) ::= <<
+select v.contrato as CONTRATO,
+	   v.cnpj_da_filial as CNPJ,
+	   v.nome_da_filial as NOME_DA_FILIAL,
+	   v.codigo_da_base as CODIGO_DA_BASE,
+	   v.nome_da_base  as NOME_DA_BASE,
+	   v.data_da_utilizacao as DATA_TRANSACAO,
+	   v.data_da_postagem  as DATA_POSTAGEM,
+	   v.codigo_da_autorizacao  as CODIGO_AUTORIZACAO,
+	   v.placa_do_veiculo  as PLACA_DO_VEICULO,
+	   v.modelo_do_veiculo  as MODELO_DO_VEICULO,
+	   v.veiculo_estado as UF_DO_VEICULO,
+	   v.veiculo_cidade as CIDADE_DO_VEICULO,
+	   v.cpf_do_motorista  as CPF_MOTORISTA,
+	   v.nome_do_motorista  as NOME_DO_MOTORISTA,
+	   v.tipo_do_cartao  as TIPO_DO_CARTAO,
+	   v.tipo_frota as TIPO_FROTA,
+	   v.numero_do_cartao  as NUMERO_DO_CARTAO,
+	   v.codigo_do_perfil_da_conta  as CODIGO_PERFIL,
+	   v.nome_do_perfil_da_conta  as PERFIL,
+	   v.tipo_da_transacao  as TIPO_DA_TRANSACAO,
+	   v.codigo_do_status  as STATUS,
+	   v.status as STATUS_DESCRICAO,
+	   v.descricao_do_status  as TRANSACAO_DESCRICAO,
+	   v.obs_carga_complementar as CARGA_COMPLEMENTAR,
+	   v.centro_de_custo  as CENTRO_DE_CUSTO,
+	   v.id_coleta  as NUMERO_NOTA_FISCAL,
+	   v.tipo_da_mercadoria  as TIPO_DA_MERCADORIA,
+	   v.nome_da_mercadoria as MERCADORIA,
+	   v.valor_unitario_da_mercadoria as VALOR_UNITARIO_DA_MERCADORIA,
+	   v.quantidade_de_mercadoria as QUANTIDADE_DE_MERCADORIA,
+	   v.valor_da_transacao  as VALOR_TOTAL_COM_DESCONTO,
+	   v.valor_economizado as VALOR_TOTAL_ECONOMIZADO,
+	   v.valor_da_transacao_original as VALOR_ORIGINAL,
+	   v.cnpj_ec as CNPJ_EC,
+	   v.ec_transacionado as NOME_EC,
+	   v.logradouro_ec  as LOGRADOURO_EC,
+	   v.ec_cidade as CIDADE_EC,
+	   v.ec_estado  as ESTADO_EC,
+	   v.bandeira_ec  as BANDEIRA_EC,
+	   v.codigo_motorista as CODIGO_MOTORISTA,
+	   v.placa_transacao as PLACA_TRANSACAO,
+	   v.hodometro_transacao as HODOMETRO_TRANSACAO,
+	   v.horimetro_transacao as HORIMETRO_TRANSACAO,
+	   v.rendimento_veiculo as RENDIMENTO_VEICULO,
+	   v.capacidade_tanque_veiculo as CAPACIDADE_TANQUE,
+	   v.codigo_da_frota as CODIGO_DA_FROTA,
+	   v.ordem_de_servico as ORDEM_DE_SERVICO,
+	   v.centro_de_custo_da_transacao as CENTRO_CUSTO_TRANSACAO,
+	   v.campos_de_1_a_6 CAMPOS_1_6
+from  db_alelofrota_sandbox.vw_transacoes v
+where v.contrato = <contractNumber>
+<if(branch)>
+and v.cnpj_da_filial = '<branch>'
+<endif>
+<if(bases)>
+and v.codigo_da_base in (<bases>)
+<endif>
+<if(cardProfile)>
+and v.codigo_do_perfil_da_conta = <cardProfile>
+<endif>
+<if(documentNumber)>
+and v.cpf_do_motorista = '<documentNumber>'
+<endif>
+<if(status)>
+and v.codigo_do_status = <status>
+<endif>
+<if(plate)>
+and v.placa_do_veiculo = '<plate>'
+<endif>
+<if(costCenter)>
+and v.centro_de_custo = <costCenter>
+<endif>
+<if(isTransaction)>
+and v.anomesdia between  CAST('<transactionDateStart>' AS DATE) and  CAST('<transactionDateEnd>' AS DATE)
+<endif>
+<if(isPostage)>
+and v.data_da_postagem between  CAST('<transactionDateStart>' AS DATE) and  CAST('<transactionDateEnd>' AS DATE)
+<endif>
+>>
+
