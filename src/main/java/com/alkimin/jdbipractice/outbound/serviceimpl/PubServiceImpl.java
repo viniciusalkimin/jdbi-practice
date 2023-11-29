@@ -28,7 +28,7 @@ public class PubServiceImpl implements PubService {
     }
 
     @Override
-    public List<PubListRecord> findByParameter(ParamSearch paramSearch) {
-        return pubDAO.getByParameter(paramSearch.state(), paramSearch.city(), paramSearch.county());
+    public List<PubListRecord> findByParameter(String state, String city, String county) {
+        return pubDAO.getByParameter(state, city, county);
     }
 }

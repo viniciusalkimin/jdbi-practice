@@ -31,9 +31,9 @@ public class PubController {
         return ResponseEntity.ok().body(pub);
     }
 
-    @PostMapping("/find")
-    public ResponseEntity<List<PubListRecord>> getByParameter(@RequestBody ParamSearch paramSearch){
-        return ResponseEntity.ok().body(pubService.findByParameter(paramSearch));
+    @GetMapping("/find")
+    public ResponseEntity<List<PubListRecord>> getByParameter(@RequestParam(required = false) String state, @RequestParam(required = false) String city, @RequestParam(required = false) String county ){
+        return ResponseEntity.ok().body(pubService.findByParameter(state, city, county));
     }
 
 

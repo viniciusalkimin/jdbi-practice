@@ -13,5 +13,5 @@ public interface PubService {
 
     public PubCreatedRecord create(CreatePubRecord createPubRecord);
 
-    List<PubListRecord> findByParameter(ParamSearch paramSearch);
+    List<PubListRecord> findByParameter(String state, String city, String county);
 }
